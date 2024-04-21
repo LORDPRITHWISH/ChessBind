@@ -3,13 +3,14 @@
 #include <functional>
 #include "clasdef.h"
 
-piece get(int i, int j, std::vector<piece> board)
+piece get(std::vector<int> pos, std::vector<piece> board)
 {
-    return board[i * 8 + j];
+    return board[pos[0] * 8 + pos[1]];
 }
 
-std::vector<std::vector<int>> posible(std::vector<piece> board, piece pla, int x, int y)
+std::vector<std::vector<int>> posible(std::vector<piece> board, std::vector<int> cord)
 {
+    piece pla = get(cord, board);
     std::vector<std::vector<int>> out;
 
     std::function<bool(int, int)> cheak = [&board, &pla, &out](int i, int j)
@@ -17,11 +18,11 @@ std::vector<std::vector<int>> posible(std::vector<piece> board, piece pla, int x
         if (i < 0 || i > 7 || j > 7 || j < 0)
             return false;
 
-        if (get(i, j, board).value == 0)
+        if (get({i, j}, board).value == 0)
             out.push_back({i, j});
         else
         {
-            if (pla.side != get(i, j, board).side)
+            if (pla.side != get({i, j}, board).side)
                 out.push_back({i, j});
             return false;
         }
@@ -105,12 +106,12 @@ std::vector<std::vector<int>> posible(std::vector<piece> board, piece pla, int x
     {
         x += pla.side; // up is +    down is -
 
-        if (get(x, y, board).value == 0)
+        if (get({x, y}, board).value == 0)
             out.push_back({x, y});
         if (pla.unmoved)
         {
             x += pla.side;
-            if (get(x, y, board).value == 0)
+            if (get({x, y}, board).value == 0)
                 out.push_back({x, y});
         }
     };
@@ -151,7 +152,8 @@ std::vector<std::vector<int>> posible(std::vector<piece> board, piece pla, int x
         j = y;
         cheak(i, j);
     };
-
+    int x = cord[0];
+    int y = cord[1];
     switch (pla.value)
     {
     case 20:
@@ -185,16 +187,27 @@ std::vector<moves> movegen(std::vector<piece> board, int side)
     moves curr;
     for (int i = 0; i < 8; i++)
         for (int j = 0; j < 8; j++)
-            if (get(i, j, board).side == side)
+            if (get({i, j}, board).side == side)
             {
-                curr.posmoves = posible(board, get(i, j, board), i, j);
+                std::vector<int> pos = {i, j};
+                curr.posmoves = posible(board, pos);
                 if (curr.posmoves.size() > 0)
                 {
-                    curr.player = {i, j};
+                    curr.player = pos;
                     movlist.push_back(curr);
                 }
             }
     return movlist;
+}
+
+std::vector<std::vector<int>> avlpce(std::vector<piece> board, int side)
+{
+    std::vector<std::vector<int>> positions;
+    for (int i = 0; i < 8; i++)
+        for (int j = 0; j < 8; j++)
+            if (get({i, j}, board).side == side)
+                positions.push_back({i, j});
+    return positions;
 }
 
 #endif
