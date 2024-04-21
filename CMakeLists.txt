@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(faster lighter)
+project(chess_Brain)
 
 add_subdirectory(pybind11)
-pybind11_add_module(trial test.cpp)
+pybind11_add_module(brain computation.cpp)
