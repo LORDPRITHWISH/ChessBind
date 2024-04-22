@@ -1,36 +1,59 @@
 import build.brain as chess
 from setboard import setPieces,setest
-from modify import movepiece
+from modify import movepiece,getpos,show,getcord
 import numpy as np
+from typing import Union
+from fastapi import FastAPI
+
 
 board=[i for i in range(64)]
 
 setPieces(board)
-# setest(board)
 
 board = np.array(board)
 
-for i in range(0,64):
-    print(f"{board[i].getval():>4}", end=" ")
-    if (i+1)%8==0:
-        print("\n")
+
+show(board)
 
 posmov = chess.moves(board,1)
 
+movarr = {getpos(i.getpla()): i.getmove() for i in posmov}
 
-for i in posmov :
-    print(i.getpla())
-    print(i.getmove())
-    print('\n'*2)
+borarr={}
+for i in range(0,64):
+        borarr[i] = board[i].getval()
+
+print(borarr)
 
 aimov=chess.play(1,board)
+
 movepiece(board,aimov)
 
-for i in range(0,64):
-    print(f"{board[i].getval():>4}", end=" ")
-    if (i+1)%8==0:
-        print("\n")
+show(board)
 
 
-print(aimov)
+print(getcord(63))
 
+
+
+
+
+
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+@app.get("/move")
+def read_move():
+    return movarr
+
+@app.get("/board")
+def read_board():
+    return borarr
+
+@app.get("/play")
+def sendmove():
+    return (getpos(aimov[0]),getpos(aimov[1]))

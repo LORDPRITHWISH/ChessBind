@@ -6,6 +6,9 @@ def getpos(pos):
 def getref(pos, board):
     return board[getpos(pos)]
 
+def getcord(pos):
+    return [pos//8,pos%8]
+
 def movepiece(board,play,iniset=chess.set()):
     ini=play[0]
     fin=play[1]
@@ -20,4 +23,8 @@ def movepiece(board,play,iniset=chess.set()):
     board[getpos(ini)] = iniset
     return fipo
 
-
+def show(board):
+    for i in range(0,64):
+        print(f"{board[i].getval():>4}", end=" ")
+        if (i+1)%8==0:
+            print("\n")
