@@ -2,8 +2,8 @@ import build.brain as chess
 from setboard import setPieces,setest
 from modify import movepiece,getpos,show,getcord
 import numpy as np
-from typing import Union
 from fastapi import FastAPI
+import uvicorn
 
 
 board=[i for i in range(64)]
@@ -54,3 +54,5 @@ def read_board():
 @app.get("/play")
 def sendmove():
     return (getpos(aimov[0]),getpos(aimov[1]))
+
+uvicorn.run(app)
