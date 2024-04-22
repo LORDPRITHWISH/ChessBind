@@ -28,3 +28,4 @@ def show(board):
         print(f"{board[i].getval():>4}", end=" ")
         if (i+1)%8==0:
             print("\n")
+    print("\n"*3)

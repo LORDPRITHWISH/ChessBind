@@ -13,7 +13,6 @@ setPieces(board)
 board = np.array(board)
 
 
-show(board)
 
 posmov = chess.moves(board,1)
 
@@ -23,16 +22,14 @@ borarr={}
 for i in range(0,64):
         borarr[i] = board[i].getval()
 
-print(borarr)
+show(board)
 
 aimov=chess.play(1,board)
-
 movepiece(board,aimov)
 
 show(board)
 
 
-print(getcord(63))
 
 
 
