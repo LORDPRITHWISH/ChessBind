@@ -217,6 +217,8 @@ std::vector<std::vector<int>> avlpce(std::vector<piece> board, int side)
 
 #endif
 
+
+
 // K : 20
 // Q :  9
 // R :  5
