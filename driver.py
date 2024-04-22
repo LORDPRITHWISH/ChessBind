@@ -55,4 +55,10 @@ def read_board():
 def sendmove():
     return (getpos(aimov[0]),getpos(aimov[1]))
 
+@app.post("/chance")
+async def receive_integers(integers: list[int]):
+    print(getcord(integers[0]),getcord(integers[1]))
+    return {"received_integers": integers}
+
+
 uvicorn.run(app)

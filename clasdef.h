@@ -7,7 +7,7 @@ class piece
 public:
     int value, side;
     bool unmoved;
-    static int total;
+    static long long int total;
     piece()
     {
         side = 0;
@@ -37,7 +37,7 @@ public:
     }
 };
 
-int piece::total = 0;
+long long int piece::total = 0;
 
 class moves
 {

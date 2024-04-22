@@ -1,6 +1,8 @@
 #ifndef brain
 #include "movement.h"
 
+#include <iostream>
+
 int getpos(std::vector<int> pos)
 {
     return pos[0] * 8 + pos[1];
@@ -37,7 +39,7 @@ int last(bool elecon, int player, int mySide, int value, int score)
 
 int recurCalculate(int mySide, int play, int score, int elival, bool elecon, std::vector<piece> board, int lev)
 {
-
+    piece::total++;
     if (lev == 0)
         return last(elecon, play, mySide, elival, score);
     std::vector<std::vector<int>> avlpos = avlpce(board, mySide);
@@ -131,8 +133,9 @@ std::vector<std::vector<int>> calculate(int mySide, std::vector<piece> board, in
 
 std::vector<std::vector<int>> aiMove(int mySide, std::vector<piece> board)
 {
-    int lev = 3;
+    int lev = 2;
     std::vector<std::vector<int>> aptMov = calculate(mySide, board, lev);
+    std::cout << piece::total << " no of times\n\n";
     return aptMov;
 }
 
