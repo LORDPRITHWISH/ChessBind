@@ -15,6 +15,12 @@ public:
     }
     piece(int val)
     {
+        if (val == 0)
+        {
+            side = 0;
+            value = 0;
+            return;
+        }
         value = abs(val);
         side = val / value;
         unmoved = true;

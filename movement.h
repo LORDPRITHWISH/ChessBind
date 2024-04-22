@@ -116,7 +116,7 @@ std::vector<std::vector<int>> posible(std::vector<piece> board, std::vector<int>
         }
     };
 
-    std::function<void(int, int)> king = [&cheak](int x, int y)
+    std::function<void(int, int)> king = [&cheak, &board, &out](int x, int y)
     {
         int i, j;
 
@@ -151,6 +151,11 @@ std::vector<std::vector<int>> posible(std::vector<piece> board, std::vector<int>
         i = x + 1;
         j = y;
         cheak(i, j);
+
+        if (get({x, y}, board).unmoved)
+            if (get({x, y + 3}, board).value == 5 && get({x, y + 3}, board).unmoved)
+                if (get({x, y + 1}, board).value == 0 && get({x, y + 2}, board).value == 0)
+                    out.push_back({x, y + 2});
     };
     int x = cord[0];
     int y = cord[1];
@@ -211,3 +216,10 @@ std::vector<std::vector<int>> avlpce(std::vector<piece> board, int side)
 }
 
 #endif
+
+// K : 20
+// Q :  9
+// R :  5
+// B :  4
+// H :  3
+// P :  1
