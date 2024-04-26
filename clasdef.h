@@ -1,6 +1,9 @@
 #ifndef clasdef
+
 #include <stdlib.h>
 #include <vector>
+
+#include<iostream>
 
 class piece
 {

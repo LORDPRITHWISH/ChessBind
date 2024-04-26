@@ -1,10 +1,10 @@
 #ifndef movement
-#include <vector>
 #include <functional>
 #include "clasdef.h"
 
 piece get(std::vector<int> pos, std::vector<piece> board)
 {
+    // std::cout << "get-> " << pos[0] << "," << pos[1] << '\n';
     return board[pos[0] * 8 + pos[1]];
 }
 
@@ -12,8 +12,9 @@ std::vector<std::vector<int>> posible(std::vector<piece> board, std::vector<int>
 {
     piece pla = get(cord, board);
     std::vector<std::vector<int>> out;
+    std::vector<std::vector<int>> cut;
 
-    std::function<bool(int, int)> cheak = [&board, &pla, &out](int i, int j)
+    std::function<bool(int, int)> cheak = [&board, &pla, &out, &cut](int i, int j)
     {
         if (i < 0 || i > 7 || j > 7 || j < 0)
             return false;
@@ -23,6 +24,7 @@ std::vector<std::vector<int>> posible(std::vector<piece> board, std::vector<int>
         else
         {
             if (pla.side != get({i, j}, board).side)
+                // cut.push_back({i, j});
                 out.push_back({i, j});
             return false;
         }
@@ -102,17 +104,40 @@ std::vector<std::vector<int>> posible(std::vector<piece> board, std::vector<int>
             }
     };
 
-    std::function<void(int, int)> pawn = [&board, &pla, &out](int x, int y)
+    std::function<void(int, int)> pawn = [&board, &pla, &out, &cut](int x, int y)
     {
         x += pla.side; // up is +    down is -
-
-        if (get({x, y}, board).value == 0)
-            out.push_back({x, y});
-        if (pla.unmoved)
+        if (x < 8 && x > 0)
         {
-            x += pla.side;
             if (get({x, y}, board).value == 0)
+            {
                 out.push_back({x, y});
+                if (pla.unmoved)
+                {
+                    int ax = x + pla.side;
+                    if (ax < 8 && ax > 0)
+                    {
+                        if (get({ax, y}, board).value == 0)
+                            out.push_back({ax, y});
+                        pla.move();
+                    }
+                }
+            }
+            piece pic;
+            if (y + 1 < 8)
+            {
+                pic = get({x, y + 1}, board);
+                if (pic.value > 0 && pla.side != pic.side)
+                    // cut.push_back({x, y + 1});
+                    out.push_back({x, y + 1});
+            }
+            if (y + 1 < 8)
+            {
+                pic = get({x, y - 1}, board);
+                if (pic.value > 0 && pla.side != pic.side)
+                    // cut.push_back({x, y - 1});
+                    out.push_back({x, y - 1});
+            }
         }
     };
 
@@ -157,6 +182,7 @@ std::vector<std::vector<int>> posible(std::vector<piece> board, std::vector<int>
                 if (get({x, y + 1}, board).value == 0 && get({x, y + 2}, board).value == 0)
                     out.push_back({x, y + 2});
     };
+    
     int x = cord[0];
     int y = cord[1];
     switch (pla.value)
@@ -183,6 +209,8 @@ std::vector<std::vector<int>> posible(std::vector<piece> board, std::vector<int>
     default:
         break;
     }
+    for (std::vector<int> po : cut)
+        out.insert(out.begin(), po);
     return out;
 }
 
@@ -207,17 +235,17 @@ std::vector<moves> movegen(std::vector<piece> board, int side)
 
 std::vector<std::vector<int>> avlpce(std::vector<piece> board, int side)
 {
+    // std::cout << "move search \n\n";
     std::vector<std::vector<int>> positions;
     for (int i = 0; i < 8; i++)
         for (int j = 0; j < 8; j++)
             if (get({i, j}, board).side == side)
                 positions.push_back({i, j});
+    // std::cout << "move search done \n\n\n\n\n\n\n\n";
     return positions;
 }
 
 #endif
-
-
 
 // K : 20
 // Q :  9

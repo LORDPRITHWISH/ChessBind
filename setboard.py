@@ -38,5 +38,7 @@ def setest(bor):
         for j in range(0,8):
             bor[eva(i,j)]=chess.set()
     # bor[eva(i,j)]=chess.set()
-    bor[eva(1,1)]=chess.set(3)
-    bor[eva(2,3)]=chess.set(-1)
+    bor[eva(2,5)]=chess.set(5)
+    # bor[eva(4,1)]=chess.set(1)
+    # bor[eva(3,3)]=chess.set(-1)
+    bor[eva(5,2)]=chess.set(-1)

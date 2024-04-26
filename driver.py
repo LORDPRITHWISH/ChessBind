@@ -4,11 +4,13 @@ from modify import movepiece,getpos,show,getcord
 import numpy as np
 from fastapi import FastAPI
 import uvicorn
+import time
 
 
 board=[i for i in range(64)]
 
-setPieces(board)
+# setPieces(board)
+setest(board)
 
 board = np.array(board)
 
@@ -22,43 +24,58 @@ borarr={}
 for i in range(0,64):
         borarr[i] = board[i].getval()
 
+def play(side:int):
+    stm=time.time()
+    aimov=chess.play(side,board)
+    movepiece(board,aimov)
+    show(board)
+    print(time.time()-stm)
+    # return -side
+
+# show(board)
+# stm=time.time()
+# aimov=chess.play(1,board)
+# movepiece(board,aimov)
+
+
+# for i in range(0,20):
+#     play(1)
+#     play(-1)
+
 show(board)
-
-aimov=chess.play(1,board)
-movepiece(board,aimov)
-
-show(board)
+play(1)
 
 
 
+
+# cmake .. && make && python3 ../driver.py
 
 
 
 
 
+# app = FastAPI()
 
-app = FastAPI()
+# @app.get("/")
+# def read_root():
+#     return {"Hello": "World"}
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+# @app.get("/move")
+# def read_move():
+#     return movarr
 
-@app.get("/move")
-def read_move():
-    return movarr
+# @app.get("/board")
+# def read_board():
+#     return borarr
 
-@app.get("/board")
-def read_board():
-    return borarr
+# @app.get("/play")
+# def sendmove():
+#     return (getpos(aimov[0]),getpos(aimov[1]))
 
-@app.get("/play")
-def sendmove():
-    return (getpos(aimov[0]),getpos(aimov[1]))
-
-@app.post("/chance")
-async def receive_integers(integers: list[int]):
-    print(getcord(integers[0]),getcord(integers[1]))
-    return {"received_integers": integers}
+# @app.post("/chance")
+# async def receive_integers(integers: list[int]):
+#     print(getcord(integers[0]),getcord(integers[1]))
+#     return {"received_integers": integers}
 
 
-uvicorn.run(app)
+# uvicorn.run(app)
