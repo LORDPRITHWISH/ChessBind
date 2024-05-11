@@ -87,6 +87,9 @@ int main()
     // std::vector<int> a={1,5,4,8,7,9,4,10,5,4,3,77};
     // a.pop_back(std::remove(a.b))
     // test(a);
-    run();
+    // run();
+    int po =38;
+    while ((po + 1) % 8)
+        std::cout<<po--<<" ";
     // writeBinary(13);
 }

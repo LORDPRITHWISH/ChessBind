@@ -28,20 +28,20 @@ std::vector<mov> posible(std::vector<piece> board, int cord)
         int po;
 
         po = loc - 9;
-        while (cheak(po))
-            po = loc - 9;
+        while (cheak(po) && (po) % 8)
+            po -= 9;
 
         po = loc + 9;
-        while (cheak(po))
-            po = loc + 9;
+        while (cheak(po) && (po + 1) % 8)
+            po += 9;
 
         po = loc - 7;
-        while (cheak(po))
-            po = loc - 7;
+        while (cheak(po) && (po + 1) % 8)
+            po -= 7;
 
         po = loc + 7;
-        while (cheak(po))
-            po = loc + 7;
+        while (cheak(po) && (po) % 8)
+            po += 7;
     };
 
     std::function<void(int)> hogo = [&cheak](int loc)
@@ -49,17 +49,20 @@ std::vector<mov> posible(std::vector<piece> board, int cord)
         int po;
 
         po = loc + 1;
-        while (cheak(po))
-            po = loc + 1;
+        while (cheak(po) && (po + 1) % 8)
+            po ++;
+
         po = loc - 1;
-        while (cheak(po))
-            po = loc - 1;
+        while (cheak(po) && po % 8)
+            po --;
+
         po = loc + 8;
         while (cheak(po))
-            po = loc + 8;
+            po += 8;
+
         po = loc - 8;
         while (cheak(po))
-            po = loc - 8;
+            po -= 8;
     };
 
     std::function<void(int)> hor = [&cheak](int loc)
@@ -70,14 +73,15 @@ std::vector<mov> posible(std::vector<piece> board, int cord)
             {
                 cheak(loc + i * 8 + j);
                 cheak(loc + j * 8 + i);
-                std::cout << (loc + i * 8 + j)<<" , ";
-                std::cout << (loc + j * 8 + i)<<"\n";
+                std::cout << (loc + i * 8 + j) << " , ";
+                std::cout << (loc + j * 8 + i) << "\n";
             }
+        std::cout << "\n\n\n\n";
     };
 
     std::function<void(int)> pawn = [&board, &pla, &out](int loc)
     {
-        int cloc = loc+pla.side * 8; // up is +    down is -
+        int cloc = loc + pla.side * 8; // up is +    down is -
         if (loc >= 0 && loc < 64)
         {
             if (board[cloc].value == 0)
