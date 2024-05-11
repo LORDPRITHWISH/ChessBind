@@ -4,8 +4,8 @@
 int recurCalculate(int side, std::vector<int> mypic, std::vector<int> oppic, mov move, int maximus, int minimus, std::vector<piece> board, int lev)
 {
     shift(move, oppic, mypic, board);
-    std::cout<<side<<" ";
-    printboard(board);
+    // std::cout<<side<<" ";
+    // printboard(board);
 
     int weight;
     bool first = false, king_swap = false;
@@ -83,7 +83,7 @@ std::vector<int> calculate(int mySide, std::vector<piece> board, int lev)
 
 std::vector<int> aiMove(int mySide, std::vector<piece> board)
 {
-    int lev = 2;
+    int lev = 4;
     // std::cout << piece::total << " no of times\n\n";
 
     std::vector<int> aptMov = calculate(mySide, board, lev);

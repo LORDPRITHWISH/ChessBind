@@ -81,7 +81,7 @@ std::vector<mov> posible(std::vector<piece> board, int cord)
                 // std::cout << (loc + i * 8 + j) << " , ";
                 // std::cout << (loc + j * 8 + i) << "\n";
             }
-        std::cout << "\n\n\n\n";
+        // std::cout << "\n\n\n\n";
     };
 
     std::function<void(int)> pawn = [&board, &pla, &out](int loc)

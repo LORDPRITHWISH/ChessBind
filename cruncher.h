@@ -29,7 +29,7 @@ void shift(mov move, std::vector<int> &my, std::vector<int> &op, std::vector<pie
     op.erase(std::remove(op.begin(), op.end(), 10), op.end());
     board[move.fin] = board[move.ini];
     board[move.ini] = piece(0, move.ini);
-    std::cout << "ini: " << printpo(move.ini) << "  fin: " << printpo(move.fin) << "\n";
+    // std::cout << "ini: " << printpo(move.ini) << "  fin: " << printpo(move.fin) << "\n";
 }
 
 // piece unshift(std::vector<piece> &board, int ini, int fin, piece iniset)

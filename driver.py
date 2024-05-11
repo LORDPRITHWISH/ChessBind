@@ -16,12 +16,12 @@ board = np.array(board)
 
 
 
-posmov = chess.moves(board,1)
+# posmov = chess.moves(board,1)
 
-movarr = {i.getpla(): i.getmove() for i in posmov}
-keys = list(movarr.keys())
-for i in keys:
-    print(i, movarr[i])
+# movarr = {i.getpla(): i.getmove() for i in posmov}
+# keys = list(movarr.keys())
+# for i in keys:
+#     print(i, movarr[i])
 
 # borarr={}
 # for i in range(0,64):
@@ -42,9 +42,9 @@ def play(side:int):
 # movepiece(board,aimov)
 
 
-# for i in range(0,20):
-#     play(1)
-#     play(-1)
+for i in range(0,20):
+    play(1)
+    play(-1)
 
 # show(board)
 # play(1)
@@ -58,9 +58,10 @@ def play(side:int):
 
 
 
+
 # app = FastAPI()
 
-# @app.get("/")
+# @app.get("/")std::cout
 # def read_root():
 #     return {"Hello": "World"}
 
