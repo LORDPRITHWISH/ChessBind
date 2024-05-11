@@ -1,6 +1,6 @@
 import build.brain as chess
 from setboard import setPieces,setest
-from modify import movepiece,getpos,show,getcord
+from modify import movepiece,show,getpos,getcord
 import numpy as np
 from fastapi import FastAPI
 import uvicorn
@@ -9,8 +9,8 @@ import time
 
 board=[i for i in range(64)]
 
-# setPieces(board)
-setest(board)
+setPieces(board)
+# setest(board)
 
 board = np.array(board)
 
@@ -18,16 +18,20 @@ board = np.array(board)
 
 posmov = chess.moves(board,1)
 
-movarr = {getpos(i.getpla()): i.getmove() for i in posmov}
+movarr = {i.getpla(): i.getmove() for i in posmov}
+keys = list(movarr.keys())
+for i in keys:
+    print(i, movarr[i])
 
-borarr={}
-for i in range(0,64):
-        borarr[i] = board[i].getval()
+# borarr={}
+# for i in range(0,64):
+#         borarr[i] = board[i].getval()
 
 def play(side:int):
     stm=time.time()
     aimov=chess.play(side,board)
     movepiece(board,aimov)
+    print(aimov)
     show(board)
     print(time.time()-stm)
     # return -side
@@ -42,8 +46,8 @@ def play(side:int):
 #     play(1)
 #     play(-1)
 
-show(board)
-play(1)
+# show(board)
+# play(1)
 
 
 

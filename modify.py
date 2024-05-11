@@ -3,26 +3,27 @@ import build.brain as chess
 def getpos(pos):
     return pos[0]*8+pos[1]
 
-def getref(pos, board):
-    return board[getpos(pos)]
+# def getref(pos, board):
+#     return board[getpos(pos)]
 
 def getcord(pos):
+
     return [pos//8,pos%8]
 
 mov=[]
 
-def movepiece(board,play,iniset=chess.set()):
+def movepiece(board,play,iniset=chess.set(0,0)):
     ini=play[0]
     fin=play[1]
-    if (getref(ini, board).value() == 20 and getref(ini, board).unmoved):
+    if (board[ini].value() == 20 and board[ini].unmoved):
         if (ini[1] + 2 == fin[1]):
-            board[getpos(fin)] = board[getpos(ini)]
-            board[getpos(ini)] = iniset
-            board[getpos([ini[0], ini[1] + 3])].move()
-    fipo = getref(fin, board)
-    getref(ini, board).move()
-    board[getpos(fin)] = board[getpos(ini)]
-    board[getpos(ini)] = iniset
+            board[fin] = board[ini]
+            board[ini] = iniset
+            board[ini+3].move()
+    fipo = board[fin]
+    board[ini].move()
+    board[fin] = board[ini]
+    board[ini] = iniset
     mov.append((fin,ini))
 
 def show(board):
