@@ -1,4 +1,5 @@
 #ifndef movement
+#include <vector>
 #include <functional>
 #include "clasdef.h"
 
@@ -50,11 +51,11 @@ std::vector<mov> posible(std::vector<piece> board, int cord)
 
         po = loc + 1;
         while (cheak(po) && (po + 1) % 8)
-            po ++;
+            po++;
 
         po = loc - 1;
         while (cheak(po) && po % 8)
-            po --;
+            po--;
 
         po = loc + 8;
         while (cheak(po))
@@ -67,14 +68,18 @@ std::vector<mov> posible(std::vector<piece> board, int cord)
 
     std::function<void(int)> hor = [&cheak](int loc)
     {
-        int i, j;
+        int i, j, vll;
         for (int i : {1, -1})
             for (int j : {2, -2})
             {
-                cheak(loc + i * 8 + j);
-                cheak(loc + j * 8 + i);
-                std::cout << (loc + i * 8 + j) << " , ";
-                std::cout << (loc + j * 8 + i) << "\n";
+                vll = loc % 8 + j;
+                if (vll < 8 && vll > -1)
+                    cheak(loc + i * 8 + j);
+                vll = loc % 8 + i;
+                if (vll < 8 && vll > -1)
+                    cheak(loc + j * 8 + i);
+                // std::cout << (loc + i * 8 + j) << " , ";
+                // std::cout << (loc + j * 8 + i) << "\n";
             }
         std::cout << "\n\n\n\n";
     };
@@ -100,7 +105,7 @@ std::vector<mov> posible(std::vector<piece> board, int cord)
             }
             piece pic;
             int dot = cloc % 8;
-            if (dot + 1 < 8)
+            if (dot < 7)
             {
                 pic = board[cloc + 1];
                 if (pic.value > 0 && pla.side != pic.side)
@@ -120,29 +125,28 @@ std::vector<mov> posible(std::vector<piece> board, int cord)
     std::function<void(int)> king = [&cheak, &board, &out](int loc)
     {
         int po;
-
-        po = loc + 9;
-        cheak(po);
-
-        po = loc + 8;
-        cheak(po);
-
-        po = loc + 7;
-        cheak(po);
-
-        po = loc + 1;
-        cheak(po);
-
-        po = loc - 9;
-        cheak(po);
+        if ((loc + 1) % 8)
+        {
+            po = loc + 9;
+            cheak(po);
+            po = loc + 1;
+            cheak(po);
+            po = loc - 7;
+            cheak(po);
+        }
+        if (po % 8)
+        {
+            po = loc - 9;
+            cheak(po);
+            po = loc - 1;
+            cheak(po);
+            po = loc + 7;
+            cheak(po);
+        }
 
         po = loc - 8;
         cheak(po);
-
-        po = loc - 7;
-        cheak(po);
-
-        po = loc - 1;
+        po = loc + 8;
         cheak(po);
 
         if (board[loc].unmoved)
