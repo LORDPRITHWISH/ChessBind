@@ -12,12 +12,13 @@ int recurCalculate(int side, std::vector<int> mypic, std::vector<int> oppic, mov
 
     std::vector<mov> moves = posov(board, mypic);
 
+    if (lev == 0)
+        return side * evaluate(board, mypic, oppic);
     for (mov ply : moves)
     {
-        if (lev == 0)
-            return side * evaluate(board, mypic, oppic);
 
         weight = -recurCalculate(-side, oppic, mypic, ply, -minimus, -maximus, board, lev - 1);
+        // std::cout << side << " - " << weight << " @" << lev << "\n";
         if (weight)
         {
             if (maximus && weight > maximus)
@@ -48,11 +49,13 @@ std::vector<int> calculate(int mySide, std::vector<piece> board, int lev)
     for (mov ply : moves)
     {
         nweight = -recurCalculate(-1, op, my, ply, -MIN, -MAX, board, lev - 1);
+        std::cout << nweight << " nw - wei= " << weight << " @" << lev << "\n";
+
         if (weight)
         {
             if (nweight > weight)
             {
-                nweight = weight;
+                weight = nweight;
                 theMove = ply;
             }
         }
@@ -78,7 +81,8 @@ std::vector<int> calculate(int mySide, std::vector<piece> board, int lev)
         //         }
         //     }
     }
-    return {theMove.ini,theMove.fin};
+    std::cout<<"returning: "<<weight;
+    return {theMove.ini, theMove.fin};
 }
 
 std::vector<int> aiMove(int mySide, std::vector<piece> board)

@@ -30,6 +30,10 @@ def setPieces(bor):
     bor[4]=chess.set(20,4)
     bor[59]=chess.set(-9,59)
     bor[60]=chess.set(-20,60)
+    # extras
+
+    bor[20]=chess.set(5,20)
+    bor[36]=chess.set(-5,36)
 
 
 

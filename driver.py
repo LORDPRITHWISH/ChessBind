@@ -42,12 +42,12 @@ def play(side:int):
 # movepiece(board,aimov)
 
 
-for i in range(0,20):
-    play(1)
-    play(-1)
+# for i in range(0,20):
+#     play(1)
+#     play(-1)
 
-# show(board)
-# play(1)
+show(board)
+play(1)
 
 
 

@@ -24,9 +24,10 @@ std::string printpo(int po)
 
 void shift(mov move, std::vector<int> &my, std::vector<int> &op, std::vector<piece> &board)
 {
-
+    if(board[move.fin].value)
+        op.erase(std::remove(op.begin(), op.end(), move.fin), op.end());
+    my.erase(std::remove(my.begin(), my.end(), move.ini), my.end());
     my.push_back(move.fin);
-    op.erase(std::remove(op.begin(), op.end(), 10), op.end());
     board[move.fin] = board[move.ini];
     board[move.ini] = piece(0, move.ini);
     // std::cout << "ini: " << printpo(move.ini) << "  fin: " << printpo(move.fin) << "\n";
