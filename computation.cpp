@@ -13,8 +13,7 @@ PYBIND11_MODULE(brain, dark)
     dark.def("play", &aiMove);
 
     py::class_<piece>(dark, "set")
-        .def(py::init<>())
-        .def(py::init<int>())
+        .def(py::init<int,int>())
         .def("getval", &piece::sndval)
         .def("move", &piece::move)
         .def("value", [](const piece &reff)
@@ -22,10 +21,10 @@ PYBIND11_MODULE(brain, dark)
         .def("detal", [](const piece &reff) -> std::pair<int, int>
              { return {reff.value, reff.side}; });
 
-    py::class_<moves>(dark, "arrayclass")
+    py::class_<allmoves>(dark, "arrayclass")
         .def(py::init<>())
-        .def("getmove", [](const moves &ref)
+        .def("getmove", [](const allmoves &ref)
              { return ref.posmoves; })
-        .def("getpla", [](const moves &ref)
+        .def("getpla", [](const allmoves &ref)
              { return ref.player; });
 }

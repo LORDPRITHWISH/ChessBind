@@ -16,22 +16,34 @@ void printboard(std::vector<piece> board)
     std::cout << "\n\n";
 }
 
-int getpos(std::vector<int> pos)
+std::string printpo(int po)
 {
-    // std::cout << "getpos= " << pos[0] << "," << pos[1] << '\n';
-    return pos[0] * 8 + pos[1];
+    std::cout << " " << po / 8 << " , " << po % 8 << " ";
+    return " ";
 }
-piece shift(std::vector<piece> &board, std::vector<int> ini, std::vector<int> fin, piece iniset = piece(0))
-{
-    piece fipo = get(fin, board);
-    get(ini, board).move();
-    // std::cout << "\nshiftini= " << ini[0] << "," << ini[1] << '\n'
-    //           << "shiftfinal= " << fin[0] << "," << fin[1] << "\n\n";
 
-    board[getpos(fin)] = board[getpos(ini)];
-    board[getpos(ini)] = iniset;
-    return fipo;
+void shift(mov move, std::vector<int> &my, std::vector<int> &op, std::vector<piece> &board)
+{
+    if(board[move.fin].value)
+        op.erase(std::remove(op.begin(), op.end(), move.fin), op.end());
+    my.erase(std::remove(my.begin(), my.end(), move.ini), my.end());
+    my.push_back(move.fin);
+    board[move.fin] = board[move.ini];
+    board[move.ini] = piece(0, move.ini);
+    // std::cout << "ini: " << printpo(move.ini) << "  fin: " << printpo(move.fin) << "\n";
 }
+
+// piece unshift(std::vector<piece> &board, int ini, int fin, piece iniset)
+// {
+//     piece fipo = board[fin];
+//     board[ini].move();
+//     // std::cout << "\nshiftini= " << ini[0] << "," << ini[1] << '\n'
+//     //           << "shiftfinal= " << fin[0] << "," << fin[1] << "\n\n";
+
+//     board[fin] = board[ini];
+//     board[ini] = iniset;
+//     return fipo;
+// }
 
 int last(bool elecon, int player, int mySide, int value, int score)
 {
@@ -46,6 +58,20 @@ int last(bool elecon, int player, int mySide, int value, int score)
     return score;
 }
 
-int evaluate()
+int sum(std::vector<piece> board, std::vector<int> pcs)
+{
+    int total = 0;
+    for (int i : pcs)
+        total += board[i].value;
+    return total;
+}
+
+int evaluate(std::vector<piece> board, std::vector<int> mypcs, std::vector<int> oppcs)
+{
+    int mysum = sum(board, mypcs);
+    int opsum = sum(board, oppcs);
+
+    return mysum - opsum;
+}
 
 #endif
