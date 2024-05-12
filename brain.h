@@ -47,6 +47,9 @@ std::vector<int> calculate(int mySide, std::vector<piece> board, int lev)
     std::vector<mov> moves = posov(board, my);
 
     for (mov ply : moves)
+        std::cout << ply.ini << "=>" << ply.fin << " @ " << ply.val << "\n";
+    std::cout << "\n\n\n";
+    for (mov ply : moves)
     {
         nweight = -recurCalculate(-1, op, my, ply, -MIN, -MAX, board, lev - 1);
         std::cout << nweight << " nw - wei= " << weight << " @" << lev << "\n";
@@ -81,7 +84,7 @@ std::vector<int> calculate(int mySide, std::vector<piece> board, int lev)
         //         }
         //     }
     }
-    std::cout<<"returning: "<<weight;
+    std::cout << "returning: " << weight << "\n";
     return {theMove.ini, theMove.fin};
 }
 

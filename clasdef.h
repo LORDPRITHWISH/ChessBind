@@ -49,25 +49,27 @@ public:
     int ini, fin, val;
     mov()
     {
-        ini=0;
-        fin=0;
-        val=0;
+        ini = 0;
+        fin = 0;
+        val = 0;
     }
     mov(int in, int fi, std::vector<piece> board)
     {
         ini = in;
         fin = fi;
-        if (board[fi].value > 0 ){
+        if (board[fi].value > 0)
+        {
             if (board[fi].value > board[in].value)
-            val = 10 * board[fi].value - board[in].value;
+                val = 10 * board[fi].value - board[in].value;
             else
             {
-                val =board[fi].value;
+                val = board[fi].value;
             }
-            
         }
-        else if (board[in].value == 1 && (fi / 8 == 0 || fi / 8 == 7))
+        else if (board[in].value == 1 && (fi < 8 || fi > 55 == 7))
             val += 100;
+        else
+            val = 0;
     }
 };
 class allmoves
