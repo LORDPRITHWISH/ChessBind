@@ -1,9 +1,14 @@
-import build.brain as chess
-from setboard import setPieces,setest
-from modify import movepiece,show,getpos,getcord
+# import .build.brain as chess
+from .build import brain as chess    
+# from setboard import setPieces,setest
+from .setboard import setPieces,setest
+# from . import setboard as sb
+# from modify import movepiece,show,getpos,getcord
+from .modify import movepiece,show,getpos,getcord
+# from modify import movepiece,show,getpos,getcord
 import numpy as np
-from fastapi import FastAPI
-import uvicorn
+# from fastapi import FastAPI
+# import uvicorn
 import time
 
 

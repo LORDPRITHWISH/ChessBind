@@ -1,4 +1,5 @@
-import build.brain as chess
+# import build.brain as chess
+from .build import brain as chess
 
 def getpos(pos):
     return pos[0]*8+pos[1]

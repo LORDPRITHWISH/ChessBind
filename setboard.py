@@ -1,4 +1,5 @@
-import build.brain as chess
+# import build.brain as chess
+from .build import brain as chess
 
 def eva(i,j):
     return i*8+j
