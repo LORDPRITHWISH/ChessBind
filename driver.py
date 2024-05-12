@@ -15,10 +15,10 @@ setPieces(board)
 board = np.array(board)
 
 
+def allmoves():
+    posmov = chess.moves(board,1)
 
-# posmov = chess.moves(board,1)
-
-# movarr = {i.getpla(): i.getmove() for i in posmov}
+    return {i.getpla(): i.getmove() for i in posmov}
 # keys = list(movarr.keys())
 # for i in keys:
 #     print(i, movarr[i])
