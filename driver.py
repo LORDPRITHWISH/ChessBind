@@ -6,6 +6,8 @@ from fastapi import FastAPI
 import uvicorn
 import time
 
+lv=4
+
 
 board=[i for i in range(64)]
 
@@ -29,7 +31,7 @@ board = np.array(board)
 
 def play(side:int):
     stm=time.time()
-    aimov=chess.play(side,board)
+    aimov=chess.play(side,board,lv)
     movepiece(board,aimov)
     print(aimov)
     show(board)

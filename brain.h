@@ -13,7 +13,12 @@ int recurCalculate(int side, std::vector<int> mypic, std::vector<int> oppic, mov
     std::vector<mov> moves = posov(board, mypic);
 
     if (lev == 0)
-        return side * evaluate(board, mypic, oppic);
+        // {
+        //     int ans=evaluate(board, mypic, oppic);
+        //     std::cout<<"    eva"<<side<<" "<<ans<<"****\n";
+        //     return ans;
+        return evaluate(board, mypic, oppic);
+    // }
     for (mov ply : moves)
     {
 
@@ -88,9 +93,9 @@ std::vector<int> calculate(int mySide, std::vector<piece> board, int lev)
     return {theMove.ini, theMove.fin};
 }
 
-std::vector<int> aiMove(int mySide, std::vector<piece> board)
+std::vector<int> aiMove(int mySide, std::vector<piece> board, int lev)
 {
-    int lev = 4;
+    // int lev = 3;
     // std::cout << piece::total << " no of times\n\n";
 
     std::vector<int> aptMov = calculate(mySide, board, lev);
