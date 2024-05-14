@@ -24,8 +24,13 @@ std::string printpo(int po)
 
 void shift(mov move, std::vector<int> &my, std::vector<int> &op, std::vector<piece> &board)
 {
-    if(board[move.fin].value)
+    std::vector<std::vector<int>> mvl;
+    if (board[move.fin].value)
+    {
+        mvl.push_back({move.fin, -1, board[move.fin].value});
         op.erase(std::remove(op.begin(), op.end(), move.fin), op.end());
+    }
+
     my.erase(std::remove(my.begin(), my.end(), move.ini), my.end());
     my.push_back(move.fin);
     board[move.fin] = board[move.ini];
@@ -33,17 +38,17 @@ void shift(mov move, std::vector<int> &my, std::vector<int> &op, std::vector<pie
     // std::cout << "ini: " << printpo(move.ini) << "  fin: " << printpo(move.fin) << "\n";
 }
 
-// piece unshift(std::vector<piece> &board, int ini, int fin, piece iniset)
-// {
-//     piece fipo = board[fin];
-//     board[ini].move();
-//     // std::cout << "\nshiftini= " << ini[0] << "," << ini[1] << '\n'
-//     //           << "shiftfinal= " << fin[0] << "," << fin[1] << "\n\n";
+piece unshift(std::vector<piece> &board, int ini, int fin, piece iniset)
+{
+    piece fipo = board[fin];
+    board[ini].move();
+    // std::cout << "\nshiftini= " << ini[0] << "," << ini[1] << '\n'
+    //           << "shiftfinal= " << fin[0] << "," << fin[1] << "\n\n";
 
-//     board[fin] = board[ini];
-//     board[ini] = iniset;
-//     return fipo;
-// }
+    board[fin] = board[ini];
+    board[ini] = iniset;
+    return fipo;
+}
 
 int last(bool elecon, int player, int mySide, int value, int score)
 {

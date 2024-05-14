@@ -1,9 +1,8 @@
 #ifndef brain
 #include "cruncher.h"
 
-int recurCalculate(int side, std::vector<int> mypic, std::vector<int> oppic, mov move, int maximus, int minimus, std::vector<piece> board, int lev)
+int recurCalculate(int side, std::vector<int> &mypic, std::vector<int> &oppic, mov move, int maximus, int minimus, std::vector<piece> &board, int lev)
 {
-    shift(move, oppic, mypic, board);
     // std::cout<<side<<" ";
     // printboard(board);
 
@@ -21,8 +20,12 @@ int recurCalculate(int side, std::vector<int> mypic, std::vector<int> oppic, mov
     // }
     for (mov ply : moves)
     {
+        shift(move, mypic, oppic, board);
 
         weight = -recurCalculate(-side, oppic, mypic, ply, -minimus, -maximus, board, lev - 1);
+
+        shift(move, mypic, oppic, board);
+
         // std::cout << side << " - " << weight << " @" << lev << "\n";
         if (weight)
         {
